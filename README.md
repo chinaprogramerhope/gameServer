@@ -1,2 +1,3 @@
 # gameServer
-mobile gameServer
+mobile gameServer.
+based on swoole
