@@ -1,2 +1,2 @@
 # gameServer
-mobile gameServer framework
+mobile gameServer
