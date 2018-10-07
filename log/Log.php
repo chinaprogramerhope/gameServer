@@ -32,7 +32,7 @@ class Log {
 //    }
 
     private static function writeFile($level, $content) {
-        $logDir = '/home/game_server/log/'; // notice: 运行php的用户必须对要写入的目录有写权限 todo
+        $logDir = '/home/game_server/log/'; // notice: 运行php的用户必须对要写入的目录有写权限 计划
         if (!file_exists($logDir)) {
             mkdir($logDir, 0777, true);
         }

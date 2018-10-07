@@ -1,3 +1,0 @@
-__LINE__效率
-nginx是否需要ob_flush()后flush(), ob_flush()和exit()的搭配
-为了效率不用require/include(_once), 自己保证require/include不重复
