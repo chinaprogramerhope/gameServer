@@ -4,6 +4,8 @@
  * User: hjl
  * Date: 18-10-7
  * Time: 下午4:09
+ *
+ * 日志
  */
 class Log {
     // 调试日志
@@ -32,7 +34,7 @@ class Log {
 //    }
 
     private static function writeFile($level, $content) {
-        $logDir = '/home/game_server/log/'; // notice: 运行php的用户必须对要写入的目录有写权限 计划
+        $logDir = '/home/game_server/log/'; // notice: 运行php的用户必须对要写入的目录有写权限 架构
         if (!file_exists($logDir)) {
             mkdir($logDir, 0777, true);
         }

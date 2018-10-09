@@ -11,8 +11,8 @@ spl_autoload_register(function ($className) {
         'class',
         'config',
         'coop',
-        'log',
         'service',
+        'tool',
     ];
 
     foreach ($dirName as $v) {
@@ -23,7 +23,7 @@ spl_autoload_register(function ($className) {
         }
 
         if (file_exists($fileName)) {
-            require $fileName; // 计划
+            require $fileName; // 架构
             break;
         }
     }
