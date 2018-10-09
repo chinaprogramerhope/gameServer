@@ -23,7 +23,7 @@ class clsAuth {
         }
         if ($redis->exists(conRedisKey::auth_register . $account)) {
             Log::info(__METHOD__ . ', ' . __LINE__ . ', this account already registered, account = ' . $account);
-            return ErrorCode::ERR_USER_EXIST;
+            return ErrorCode::ERR_ACCOUNT_EXIST;
         }
 
 
@@ -71,12 +71,12 @@ class clsAuth {
         if (!$savedPass) {
             Log::warn(__METHOD__ . ', ' . __LINE__ . ', account not exist, account = ' . $account
                 . ', password = ' . $password);
-            return ErrorCode::ERR_USER_NOT_EXIST;
+            return ErrorCode::ERR_ACCOUNT_NOT_EXIST;
         }
         if ($password !== $savedPass) {
             Log::warn(__METHOD__ . ', ' . __LINE__ . ', password wrong, account = ' . $account
                 . ', password = ' . $password);
-            return ErrorCode::ERR_USER_PASSWORD_WRONG;
+            return ErrorCode::ERR_ACCOUNT_PASSWORD_WRONG;
         }
 
         return ErrorCode::ERR_OK;
