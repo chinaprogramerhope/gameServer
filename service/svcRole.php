@@ -11,7 +11,7 @@ class svcRole {
     public function create($param) {
         if (!isset($param['accountId']) || !isset($param['roleName'])) {
             Log::error(__METHOD__ . ', ' . __LINE__ . ', invalid param, param = ' . json_encode($param));
-            return ErrorCode::ERR_ROLE_CREATE_FAIL;
+            return conErrorCode::ERR_ROLE_CREATE_FAIL;
         }
 
         $accountId = intval($param['accountId']);
@@ -24,7 +24,7 @@ class svcRole {
     public function get($param) {
         if (!isset($param['roleId'])) {
             Log::error(__METHOD__ . ', ' . __LINE__ . ', invalid param, param = ' . json_encode($param));
-            return ErrorCode::ERR_ROLE_GET_FAIL;
+            return conErrorCode::ERR_ROLE_GET_FAIL;
         }
 
         $roleId = intval($param['roleId']);
@@ -36,7 +36,7 @@ class svcRole {
     public function addExp($param) {
         if (!isset($param['roleId']) || !isset($param['expAdd'])) {
             Log::error(__METHOD__ . ', ' . __LINE__ . ', invalid param, param = ' . json_encode($param));
-            return ErrorCode::ERR_ROLE_ADD_EXP_FAIL;
+            return conErrorCode::ERR_ROLE_ADD_EXP_FAIL;
         }
 
         $roleId = intval($param['roleId']);

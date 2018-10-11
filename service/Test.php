@@ -9,7 +9,7 @@
 class Test {
     public function test1() {
         return [
-            'errorCode' => ERR_OK,
+            'conErrorCode' => ERR_OK,
             'data' => []
         ];
     }

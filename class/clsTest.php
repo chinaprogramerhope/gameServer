@@ -6,7 +6,7 @@
  * Time: 下午5:07
  */
 
-class Test {
+class clsTest {
     public function test1($param) {
         echo "$param\n";
     }

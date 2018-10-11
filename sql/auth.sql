@@ -1,7 +1,7 @@
-// 账号表  todo 账号应该是手机号或者微信或者邮箱
+// 账号表  todo 账号应该手机号注册还是微信注册
 CREATE TABLE `auth` (
-  `aid` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '玩家id',
-  `account` varchar(10) NOT NULL DEFAULT '' COMMENT '玩家角色名',
-  `password` varchar(10) NOT NULL DEFAULT '' COMMENT '玩家登陆密码',
+  `aid` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '账号id',
+  `account` char(20) NOT NULL DEFAULT '' COMMENT '账号: 手机号',
+  `password` varchar(10) NOT NULL DEFAULT '' COMMENT '登陆密码',
   PRIMARY KEY (`aid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='玩家账号表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='账号表';

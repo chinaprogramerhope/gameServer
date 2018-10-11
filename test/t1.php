@@ -5,10 +5,10 @@
  * Date: 18-10-7
  * Time: 下午4:27
  */
-require '../class/Test.php';
+require '../class/clsTest.php';
 
 $a = [
-    'svc' => 'Test',
+    'svc' => 'clsTest',
     'func' => 'test1',
     'param' => 'ok11'
 ];

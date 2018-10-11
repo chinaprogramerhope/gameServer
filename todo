@@ -13,4 +13,6 @@ notice -
 
 -----
 待解决 -
-    多层时怎么方便的返回错误码, 比如svc->cls->dao
+    多层时怎么方便的返回错误码, 比如svc->cls->dao, 还是说不需要
+    redis不像mysql那样作错误处理吗
+    redis不需要存aid吧

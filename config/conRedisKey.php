@@ -10,5 +10,6 @@
 
 class conRedisKey {
     // auth register
-    const auth_register = 'auth_register.';
+    const auth_register_aid = 'auth_register_aid.';
+    const auth_register_account = 'auth_register_account.';
 }

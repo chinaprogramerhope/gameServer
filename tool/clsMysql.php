@@ -2,16 +2,14 @@
 /**
  * Created by PhpStorm.
  * User: hjl
- * Date: 18-10-9
- * Time: 下午4:31
+ * Date: 18-10-8
+ * Time: 下午5:46
  *
- * redis
- *
- * todo 玩家register信息永久保存是否合适
+ * mysql
  * todo Serialize/Unserialize破坏单例
  */
 
-class clsRedis {
+class clsMysql {
     private static $instance = null;
 
     /**
@@ -30,10 +28,9 @@ class clsRedis {
     public static function getInstance() {
         if (null === self::$instance) {
             try {
-                self::$instance = new Redis();
-                self::$instance->connect(conConstant::redis_ip, conConstant::redis_port);
-            } catch (Exception $e) {
-                Log::error(__METHOD__ . ', ' . __LINE__ .', init redis fail: ' . $e->getMessage());
+                self::$instance = new PDO(conConstant::mysql_dsn, conConstant::mysql_user, conConstant::mysql_password);
+            } catch (PDOException $e) {
+                Log::error(__METHOD__ . ', ' . __LINE__ . ', create pdo fail: ' . $e->getMessage());
                 self::$instance = null;
             }
         }
@@ -42,15 +39,14 @@ class clsRedis {
     }
 
     public function __destruct() { // todo 保证接口调用结束时才释放
-        $this->releaseRedis();
+        $this->releaseMysql();
     }
 
     /**
-     * 关闭redis连接
+     * 关闭mysql连接
      */
-    public function releaseRedis() {
+    public function releaseMysql() {
         if (null !== self::$instance) {
-            self::$instance->close();
             self::$instance = null;
         }
     }

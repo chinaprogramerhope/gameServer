@@ -9,13 +9,13 @@
 require 'autoload.php';
 
 $ret = [
-    'errCode' => ErrorCode::ERR_OK,
+    'errCode' => conErrorCode::ERR_OK,
     'data' => []
 ];
 
 if (!isset($_POST['svc']) || !isset($_POST['func'])) {
     Log::error(basename(__FILE__) . ', ' . __LINE__ . ', invalid param, param = ' . json_encode($_POST));
-    $ret['errCode'] = ErrorCode::ERR_CLIENT;
+    $ret['errCode'] = conErrorCode::ERR_CLIENT;
     echo json_encode($ret);
     ob_flush();
     exit();
@@ -37,7 +37,7 @@ if (!is_array($ret) && is_int($ret)) {
 if (!isset($ret['errCode'])) {
     Log::error(basename(__FILE__) . ', ' . __LINE__ . ', server return is wrong, ret = ' . json_encode($ret));
     $ret = [
-        'errCode' => ErrorCode::ERR_SERVER,
+        'errCode' => conErrorCode::ERR_SERVER,
         'data' => []
     ];
     echo json_encode($ret);
