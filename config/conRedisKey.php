@@ -9,7 +9,11 @@
  */
 
 class conRedisKey {
-    // auth register
+    // auth
     const auth_register_aid = 'auth_register_aid.';
     const auth_register_account = 'auth_register_account.';
+    const auth_role = 'auth_role.';
+
+    // role
+    const role_name = 'role_name.';
 }

@@ -29,7 +29,7 @@ class conErrorCode {
 
     // 角色
     const ERR_ROLE_CREATE_FAIL = 400; // 创建角色失败
-    const ERR_ROLE_ALREADY_EXIST = 401; // 该账号在该服务已有角色
+    const ERR_ROLE_EXIST = 401; // 该账号在该服务已有角色
     const ERR_ROLE_NAME_EXIST = 402; // 角色名已存在
     const ERR_ROLE_GET_FAIL = 403; // 获取角色信息失败
     const ERR_ROLE_ADD_EXP_FAIL = 404; // 增加角色经验失败

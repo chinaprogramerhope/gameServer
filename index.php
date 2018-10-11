@@ -8,7 +8,7 @@
 
 require 'autoload.php';
 
-$ret = [
+$ret = [ // 返回值标准格式, 支持只返回其中一个
     'errCode' => conErrorCode::ERR_OK,
     'data' => []
 ];
@@ -24,28 +24,60 @@ $_POST['param'] = isset($_POST['param']) ? $_POST['param'] : $_POST['param'];
 
 $ret = (new $_POST['svc'])->{$_POST['func']}($_POST['param']);
 
-if (!is_array($ret) && is_int($ret)) {
-    $ret = [
-        'errCode' => $ret,
-        'data' => []
-    ];
+if (!is_array($ret)) {
+    if (is_int($ret)) { // 只返回errCode
+        $ret = [
+            'errCode' => $ret,
+            'data' => []
+        ];
+    } else {
+        $ret = [
+            'errCode' => conErrorCode::ERR_SERVER,
+            'data' => []
+        ];
+    }
+
     echo json_encode($ret);
     ob_flush();
     exit();
 }
 
 if (!isset($ret['errCode'])) {
-    Log::error(basename(__FILE__) . ', ' . __LINE__ . ', server return is wrong, ret = ' . json_encode($ret));
-    $ret = [
-        'errCode' => conErrorCode::ERR_SERVER,
-        'data' => []
-    ];
+    if (isset($ret['data']) && is_array($ret['data'])) { // 只返回data
+        $data = $ret;
+        $ret = [
+            'errCode' => conErrorCode::ERR_OK,
+            'data' => $data
+        ];
+    } else {
+        Log::error(basename(__FILE__) . ', ' . __LINE__ . ', server return is wrong, ret = ' . json_encode($ret));
+        $ret = [
+            'errCode' => conErrorCode::ERR_SERVER,
+            'data' => []
+        ];
+    }
+
     echo json_encode($ret);
     ob_flush();
     exit();
 }
-if (!isset($ret['data'])) {
-    $ret['data'] = [];
+
+if (!isset($ret['errCode']) && !isset($ret['data'])) { // errCode和data都没返回
+    Log::error(__FILE__ . ', ' . __LINE__ . ', server return is wrong, ret = ' . json_encode($ret));
+
+    $ret = [
+        'errCode' => conErrorCode::ERR_SERVER,
+        'data' => []
+    ];
+}
+
+if (!is_int($ret['errCode']) || !is_array($ret['data'])) { // 返回了errCode和data但类型错误
+    Log::error(__FILE__ . ', ' . __LINE__ . ', server return is wrong, ret = ' . var_dump($ret));
+
+    $ret = [
+        'errCode' => conErrorCode::ERR_SERVER,
+        'data' => []
+    ];
 }
 
 echo json_encode($ret);
