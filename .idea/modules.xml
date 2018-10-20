@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../WebSocket/.idea/WebSocket.iml" filepath="$PROJECT_DIR$/../WebSocket/.idea/WebSocket.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/gameServer.iml" filepath="$PROJECT_DIR$/.idea/gameServer.iml" />
     </modules>
   </component>

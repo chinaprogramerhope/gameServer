@@ -4,8 +4,8 @@ set_time_limit(0);
 date_default_timezone_set('Asia/shanghai');
 
 class clsWebSocket {
-    const LOG_PATH = '/tmp';
-    const LISTEN_SOCKET_NUM = 9;
+    const LOG_PATH = '/tmp/';
+    const LISTEN_SOCKET_NUM = 2;
 
     private $sockets = [];
     private $master;
@@ -158,15 +158,15 @@ class clsWebSocket {
         $key = trim(substr($line_with_key, 0, strpos($line_with_key, "\r\n")));
 
         // 生成升级密钥， 并拼接websocket升级头
-        $upgrade_key = base64_encode(sha1($key . '258EAFA5-E914-47DA-95CA-C5AB0DC85B11', true)); // 升级key的算法
-        $upgrade_message = "HTTP/1.1 101 Swtiching Protocols\r\n";
-        $upgrade_message .= "Upgrade: websocket\r\n";
-        $upgrade_message .= "Sec-WebSocket-Version: 13\r\n";
-        $upgrade_message .= "Connection: Upgrade\r\n";
-        $upgrade_message .= "Sec-WebSocket-Accept" . $upgrade_key . "\r\n\r\n";
+        $upgradeKey = base64_encode(sha1($key . '258EAFA5-E914-47DA-95CA-C5AB0DC85B11', true)); // 升级key的算法
+        $upgradeMsg = "HTTP/1.1 101 Switching Protocols\r\n";
+        $upgradeMsg .= "Upgrade: websocket\r\n";
+        $upgradeMsg .= "Sec-WebSocket-Version: 13\r\n";
+        $upgradeMsg .= "Connection: Upgrade\r\n";
+        $upgradeMsg .= "Sec-WebSocket-Accept:" . $upgradeKey . "\r\n\r\n";
 
         // 向socket写入升级信息
-        socket_write($socket, $upgrade_message, strlen($upgrade_message));
+        socket_write($socket, $upgradeMsg, strlen($upgradeMsg));
         $this->sockets[(int)$socket]['handshake'] = true;
 
         socket_getpeername($socket, $ip, $port);
@@ -183,6 +183,7 @@ class clsWebSocket {
             'content' => 'done',
         ];
         $msg = $this->build(json_encode($msg));
+
         socket_write($socket, $msg, strlen($msg));
 
         return true;
@@ -321,6 +322,12 @@ class clsWebSocket {
         $info = array_map('json_encode', $info);
         file_put_contents(self::LOG_PATH . 'websocket_error.log',
             implode(' | ', $info) . "\r\n", FILE_APPEND);
+    }
+
+    private function log($content) {
+        $time = date('Y-m-d H:i:s');
+        $file = self::LOG_PATH . 'websocket.log';
+        file_put_contents($file, $content . "\n", FILE_APPEND);
     }
 }
 

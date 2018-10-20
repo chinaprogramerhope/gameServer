@@ -1,42 +1,63 @@
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Websocket</title>
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>WebSocket Test</title>
+<script language="javascript"type="text/javascript">
+    var wsUri ="ws://127.0.0.1:8080";
+    var output;
 
-        <script type="text/javascript">
-            function WebSocketTest() {
-                if ("WebSocket" in window) {
-                    alert("您的浏览器支持 WebSocket!");
+    function init() {
+        output = document.getElementById("output");
+        testWebSocket();
+    }
 
-                    // 打开一个WebSocket
-                    var ws = new WebSocket("ws://localhost:8080");
+    function testWebSocket() {
+        websocket = new WebSocket(wsUri);
+        websocket.onopen = function(evt) {
+            onOpen(evt)
+        };
+        websocket.onclose = function(evt) {
+            onClose(evt)
+        };
+        websocket.onmessage = function(evt) {
+            onMessage(evt)
+        };
+        websocket.onerror = function(evt) {
+            onError(evt)
+        };
+    }
 
-                    ws.onopen = function() {
-                        // WebSocket已连接上, 使用send()方法发送数据
-                        ws.send("发送数据");
-                        alter("数据发送中...");
-                    };
+    function onOpen(evt) {
+        writeToScreen("CONNECTED");
+        doSend("WebSocket rocks");
+    }
 
-                    ws.onmessage = function(evt) {
-                        var receivedMsg = evt.data;
-                        alter("数据已接受...");
-                    };
+    function onClose(evt) {
+        writeToScreen("DISCONNECTED");
+    }
 
-                    ws.onclose = function() {
-                        // 关闭WebSocket
-                        alter("连接已关闭...");
-                    };
-                } else {
-                    alert("您的浏览器不支持 WebSocket!");
-                }
-            }
-        </script>
-    </head>
+    function onMessage(evt) {
+        writeToScreen('<span style="color: blue;">RESPONSE: '+ evt.data+'</span>');
+        websocket.close();
+    }
 
-    <body>
-        <div id="sse">
-            <a href="javascript:WebSocketTest()">运行 WebSocket</a>
-        </div>
-    </body>
+    function onError(evt) {
+        writeToScreen('<span style="color: red;">ERROR:</span> '+ evt.data);
+    }
+
+    function doSend(message) {
+        writeToScreen("SENT: " + message);
+        websocket.send(message);
+    }
+
+    function writeToScreen(message) {
+        var pre = document.createElement("p");
+        pre.style.wordWrap = "break-word";
+        pre.innerHTML = message;
+        output.appendChild(pre);
+    }
+
+    window.addEventListener("load", init, false);
+</script>
+<h2>WebSocket Test</h2>
+<div id="output"></div>
 </html>
