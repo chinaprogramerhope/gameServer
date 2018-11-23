@@ -28,7 +28,8 @@ class clsMysql {
     public static function getInstance() {
         if (null === self::$instance) {
             try {
-                self::$instance = new PDO(conConstant::mysql_dsn, conConstant::mysql_user, conConstant::mysql_password);
+                self::$instance = new PDO(conConstant::mysql_dsn, conConstant::mysql_user, conConstant::mysql_password,
+                                         [PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
             } catch (PDOException $e) {
                 Log::error(__METHOD__ . ', ' . __LINE__ . ', create pdo fail: ' . $e->getMessage());
                 self::$instance = null;
