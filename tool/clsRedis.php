@@ -32,6 +32,9 @@ class clsRedis {
             try {
                 self::$instance = new Redis();
                 self::$instance->connect(conConstant::redis_ip, conConstant::redis_port);
+                if (conConstant::redis_pass) {
+                    self::$instance->auth(conConstant::redis_pass);
+                }
             } catch (Exception $e) {
                 Log::error(__METHOD__ . ', ' . __LINE__ .', init redis fail: ' . $e->getMessage());
                 self::$instance = null;
