@@ -9,8 +9,8 @@ spl_autoload_register(function ($className) {
     $dirName = [
         '',
         'class',
-        'config',
-        'coop',
+	'config',
+	'dao',
         'service',
         'tool',
     ];
