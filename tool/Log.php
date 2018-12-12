@@ -34,7 +34,11 @@ class Log {
 //    }
 
     private static function writeFile($level, $content) {
-        $logDir = '/home/game_server/log/'; // notice: 运行php的用户必须对要写入的目录有写权限 架构
+        if (PHP_OS == 'Linux') {
+            $logDir = '/tmp/log/';
+        } else {
+            $logDir = 'd:/log/';
+        }
         if (!file_exists($logDir)) {
             mkdir($logDir, 0777, true);
         }
